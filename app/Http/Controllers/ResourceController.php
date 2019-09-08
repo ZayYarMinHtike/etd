@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Input;
 class ResourceController extends Controller
 {
     public function all() {
-        return view('search', [
+        return view('blog', [
             'resources' => Resource::latest()->paginate(5)
         ]);
     }
