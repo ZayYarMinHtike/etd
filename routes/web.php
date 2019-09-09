@@ -15,4 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/search', 'ResourceController@all');
+Route::get('/blog', 'ResourceController@all');
+
+Route::any('/search', 'ResourceController@search');
