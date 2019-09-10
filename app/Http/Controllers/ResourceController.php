@@ -27,10 +27,38 @@ class ResourceController extends Controller
                         ->orWhere('abstract','LIKE','%'.$q.'%')->latest()->paginate(5);
         if(count($resources) > 0) {
             return view('blog', [
-                'resources' => $resources
+                'resources' => $resources,
+                
             ]);
+            
         }else {
-            return ['message' => 'nothing found'];
+             echo "there is nothing like that result";
         }
     }
+
+    public function filter(Request $request) {
+        $q = $request->q;
+        $author = $request->author;
+        $topic = $request->topic;
+        $company = $request->company;
+        $supervisor = $request->supervisor;
+
+        $resources = Resource::search($q); 
+        $resources = $resources->where('name','LIKE','%'.$author.'%');
+        $resources = $resources->where('company','LIKE','%'.$company.'%');
+        $resources = $resources->where('supervisor','LIKE','%'.$supervisor.'%');    
+        
+
+        $resources = $resources->latest()->paginate(5);             
+        if(count($resources) > 0) {
+            return view('blog', [
+                'resources' => $resources,
+                'q' => $q,
+                'author' => $author
+            ]);
+        }else {
+             echo "there is nothing like that result";
+        }
+    }
+    
 }

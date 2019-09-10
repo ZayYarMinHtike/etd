@@ -12,9 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('search');
 });
 
 Route::get('/blog', 'ResourceController@all');
 
 Route::any('/search', 'ResourceController@search');
+
+Route::any('/filter', 'ResourceController@filter');
